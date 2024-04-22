@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Epic extends Task{
+public class Epic extends Task {
     private ArrayList<Integer> epicsSubtasksId = new ArrayList<>();
 
     public Epic(String name, String description, int id, Status status, ArrayList<Integer> epicsSubtasksId) {
@@ -17,7 +17,7 @@ public class Epic extends Task{
         super(name, description, id, status);
     }
 
-    public ArrayList<Integer> getEpicsSubtasksId(){
+    public ArrayList<Integer> getEpicsSubtasksId() {
         return epicsSubtasksId;
     }
 
@@ -41,15 +41,14 @@ public class Epic extends Task{
 
     @Override
     public String toString() {
-        if (epicsSubtasksId.isEmpty()){
+        if (epicsSubtasksId.isEmpty()) {
             return "Epic{" +
                     ", название='" + name + '\'' +
                     ", описание='" + description + '\'' +
                     ", id=" + id +
                     ", статус=" + status +
                     '}';
-        }
-        else {
+        } else {
             return
                     "Epic{" +
                             ", название='" + name + '\'' +

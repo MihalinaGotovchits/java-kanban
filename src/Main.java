@@ -17,13 +17,13 @@ public class Main {
         taskManager.updateTask(task1);
         System.out.println(taskManager.getSimpleTask());
 
-        System.out.println(taskManager.getEpicSubTasks());
+        System.out.println(taskManager.getSubTasks());
 
         Subtask subtask2 = new Subtask("Подзадача2", "Новая подзадача2", 3, Status.DONE, 2);
         Subtask subtask3 = new Subtask("Подзадача2", "Новая подзадача2", 4, Status.DONE, 2);
         taskManager.updateSubtask(subtask2);
         taskManager.updateSubtask(subtask3);
-        System.out.println(taskManager.getEpicSubTasks());
+        System.out.println(taskManager.getSubTasks());
         System.out.println(taskManager.getEpicTasks());
 
         epic.setId(1);
@@ -31,7 +31,7 @@ public class Main {
         subtask.setId(1);
         subtask1.setId(1);
 
-        taskManager.removeAllTasksLists();
+        taskManager.removeAll();
 
         System.out.println(taskManager.epicTasks);
         System.out.println(taskManager.simpleTasks);
