@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.Objects;
 
 public class Task {
@@ -70,7 +72,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Structure.Task{" +
                 "Название='" + name + '\'' +
                 ", Описание='" + description + '\'' +
                 ", id=" + id +

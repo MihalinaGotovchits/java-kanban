@@ -1,3 +1,5 @@
+package Structure;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -42,7 +44,7 @@ public class Epic extends Task {
     @Override
     public String toString() {
         if (epicsSubtasksId.isEmpty()) {
-            return "Epic{" +
+            return "structure.Epic{" +
                     ", название='" + name + '\'' +
                     ", описание='" + description + '\'' +
                     ", id=" + id +
@@ -50,7 +52,7 @@ public class Epic extends Task {
                     '}';
         } else {
             return
-                    "Epic{" +
+                    "structure.Epic{" +
                             ", название='" + name + '\'' +
                             ", описание='" + description + '\'' +
                             ", id=" + id +

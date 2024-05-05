@@ -1,3 +1,7 @@
+package tests;
+
+import Structure.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +29,7 @@ class HistoryManagerTest {
         ArrayList<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
-        assertEquals(0, task.getId(), "Иcтория сохранена с ошибкой");
+        Assertions.assertEquals(0, task.getId(), "Иcтория сохранена с ошибкой");
     }
 
     @Test
@@ -43,7 +47,7 @@ class HistoryManagerTest {
         ArrayList<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
-        assertEquals(0, subtask.getId(), "Иcтория сохранена с ошибкой");
+        Assertions.assertEquals(0, subtask.getId(), "Иcтория сохранена с ошибкой");
     }
 
     @Test
@@ -60,6 +64,6 @@ class HistoryManagerTest {
         historyManager.add(task);
         history = historyManager.getHistory();
         assertEquals(3, history.size(), "История сохранена неверно");
-        assertEquals(0, task.getId(), "История сохранена неверно");
+        Assertions.assertEquals(0, task.getId(), "История сохранена неверно");
     }
 }

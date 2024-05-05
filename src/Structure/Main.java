@@ -1,3 +1,5 @@
+package Structure;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -15,7 +17,7 @@ public class Main {
 
         Task task1 = new Task("Задача1", "Новая задача1");
         taskManager.updateTask(task1);
-        System.out.println(taskManager.getSimpleTask());
+        System.out.println(taskManager.getSimpleTasks());
 
     }
 }
