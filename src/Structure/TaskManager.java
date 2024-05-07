@@ -21,7 +21,9 @@ public interface TaskManager {
 
     Subtask getSubTasksById(int id);
 
-    void removeById(int id);
+    void removeTaskById(int id);
+    void removeEpicById(int id);
+    void removeSubtaskById(int id);
 
     void removeSimpleTasks();
 
