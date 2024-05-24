@@ -18,10 +18,10 @@ class HistoryManagerTest {
 
     @BeforeEach
     void init() {
-        task = new Task("Задача", "Новая задача");
-        epic = new Epic("Эпик", "Новый эпик");
-        subtask = new Subtask("Подзадача", "Новая подзадача", 2);
-
+        task = new Task("Задача", "Новая задача", 1, Status.NEW);
+        epic = new Epic("Эпик", "Новый эпик", 2, Status.NEW);
+        subtask = new Subtask("Подзадача", "Новая подзадача", 3, Status.NEW, 2);
+        subtask2 = new Subtask("Подзадача 2", "Новая подзадача 2", 4, Status.NEW, 2);
     }
 
     @Test
@@ -30,7 +30,7 @@ class HistoryManagerTest {
         List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
-        Assertions.assertEquals(0, task.getId(), "Иcтория сохранена с ошибкой");
+        Assertions.assertEquals(1, task.getId(), "Иcтория сохранена с ошибкой");
     }
 
     @Test
@@ -39,7 +39,7 @@ class HistoryManagerTest {
         List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
-        assertEquals(0, epic.getId(), "Иcтория сохранена с ошибкой");
+        assertEquals(2, epic.getId(), "Иcтория сохранена с ошибкой");
     }
 
     @Test
@@ -48,7 +48,7 @@ class HistoryManagerTest {
         List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
-        Assertions.assertEquals(0, subtask.getId(), "Иcтория сохранена с ошибкой");
+        Assertions.assertEquals(3, subtask.getId(), "Иcтория сохранена с ошибкой");
     }
 
     @Test
@@ -61,11 +61,15 @@ class HistoryManagerTest {
         history = historyManager.getHistory();
         assertEquals(1, history.size(), "История не сохранена");
 
+        historyManager.remove(1);
+        history = historyManager.getHistory();
+        assertTrue(history.isEmpty(), "История не пустая");
+
         historyManager.add(task);
         historyManager.add(task);
         history = historyManager.getHistory();
-        assertEquals(3, history.size(), "История сохранена неверно");
-        Assertions.assertEquals(0, task.getId(), "История сохранена неверно");
+        assertEquals(1, history.size(), "История сохранена неверно");
+        assertEquals(1, task.getId(), "История сохранена неверно");
     }
 
     @Test
