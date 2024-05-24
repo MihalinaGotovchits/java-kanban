@@ -69,7 +69,7 @@ class HistoryManagerTest {
     }
 
     @Test
-    void  remove(){
+    void remove() {
         historyManager.add(task);
         historyManager.add(epic);
         historyManager.add(subtask);
