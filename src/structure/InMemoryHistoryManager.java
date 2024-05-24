@@ -43,7 +43,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         private Node<Task> tail;
 
         //мапа для хранения пары id задачи - узел
-        final private Map<Integer, QueueLinkedList.Node<Task>> idNode = new HashMap<>();
+        final Map<Integer, QueueLinkedList.Node<Task>> idNode = new HashMap<>();
 
 
         //метод добавляет задачу в конец списка и удаляет ее предыдущий просмотр
