@@ -1,6 +1,7 @@
 package Structure;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     void addSimpleTask(Task task);
@@ -39,5 +40,5 @@ public interface TaskManager {
 
     void updateSubtask(Subtask updateSubtask);
 
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
 }

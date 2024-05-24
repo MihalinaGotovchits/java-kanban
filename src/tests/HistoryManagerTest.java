@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +14,7 @@ class HistoryManagerTest {
     Task task;
     Epic epic;
     Subtask subtask;
+    Subtask subtask2;
 
     @BeforeEach
     void init() {
@@ -26,7 +27,7 @@ class HistoryManagerTest {
     @Test
     void addTask() {
         historyManager.add(task);
-        ArrayList<Task> history = historyManager.getHistory();
+        List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
         Assertions.assertEquals(0, task.getId(), "Иcтория сохранена с ошибкой");
@@ -35,7 +36,7 @@ class HistoryManagerTest {
     @Test
     void addEpic() {
         historyManager.add(epic);
-        ArrayList<Task> history = historyManager.getHistory();
+        List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
         assertEquals(0, epic.getId(), "Иcтория сохранена с ошибкой");
@@ -44,7 +45,7 @@ class HistoryManagerTest {
     @Test
     void addSubtask() {
         historyManager.add(subtask);
-        ArrayList<Task> history = historyManager.getHistory();
+        List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не найдена");
         assertEquals(1, history.size(), "История пуста");
         Assertions.assertEquals(0, subtask.getId(), "Иcтория сохранена с ошибкой");
@@ -52,7 +53,7 @@ class HistoryManagerTest {
 
     @Test
     void getHistory() {
-        ArrayList<Task> history = historyManager.getHistory();
+        List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История отсутствует");
         assertTrue(history.isEmpty(), "История не пуста");
 
@@ -65,5 +66,33 @@ class HistoryManagerTest {
         history = historyManager.getHistory();
         assertEquals(3, history.size(), "История сохранена неверно");
         Assertions.assertEquals(0, task.getId(), "История сохранена неверно");
+    }
+
+    @Test
+    void  remove(){
+        historyManager.add(task);
+        historyManager.add(epic);
+        historyManager.add(subtask);
+        List<Task> history = historyManager.getHistory();
+        assertNotNull(history, "Список истории отсутствует");
+        assertEquals(3, history.size(), "История сохранена неверно");
+        //удаление из начала истории
+        historyManager.remove(1);
+        history = historyManager.getHistory();
+        assertEquals(2, history.size(), "История сохранена неверно");
+        assertEquals(2, history.get(0).getId(), "История сохранена неверно");
+        assertEquals(3, history.get(1).getId(), "История сохранена неверно");
+        //удаление из середины истории
+        historyManager.add(subtask2);
+        historyManager.remove(3);
+        history = historyManager.getHistory();
+        assertEquals(2, history.size(), "История сохранена неверно");
+        assertEquals(2, history.get(0).getId(), "История сохранена неверно");
+        assertEquals(4, history.get(1).getId(), "История сохранена неверно");
+        //удаление с конца истории
+        historyManager.remove(4);
+        history = historyManager.getHistory();
+        assertEquals(1, history.size(), "История сохранена неверно");
+        assertEquals(2, history.get(0).getId(), "История сохранена неверно");
     }
 }
