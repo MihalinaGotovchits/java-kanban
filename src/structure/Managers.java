@@ -1,4 +1,4 @@
-package Structure;
+package structure;
 
 public class Managers {
     public static TaskManager getDefault() {
