@@ -5,14 +5,12 @@ import exceptions.ManagerSaveException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class FileBackedTaskManager extends InMemoryTaskManager{
+public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
 
-    public FileBackedTaskManager(Path path){
+    public FileBackedTaskManager(Path path) {
         this.file = new File(String.valueOf(path));
     }
 
@@ -20,14 +18,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
     private static final String FIRST_LINE = "id,type,name,status,description,epic";
 
     //метод читает и восстанавливает задачи, которые были записаны в файл во время предыдущей работы
-    static FileBackedTaskManager loadFromFile(File file){
+    static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager fileManager = new FileBackedTaskManager(Path.of("./resources/kanban.csv"));
-        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
             List<String> readTaskLine = reader.lines().toList();
             for (int i = 0; i < readTaskLine.size(); i++) {
                 String[] line = readTaskLine.get(i).split(",");
                 Task task = fromString(line[i]);
-                switch (task.getTaskType()){
+                switch (task.getTaskType()) {
                     case TASK:
                         fileManager.simpleTasks.put(task.getId(), task);
                         break;
@@ -42,7 +40,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
                         fileManager.recalculateEpicStatus(epicId);
                         break;
                 }
-                if (task.getId() > fileManager.idGenerator){
+                if (task.getId() > fileManager.idGenerator) {
                     fileManager.idGenerator = task.getId();
                 }
             }
@@ -53,14 +51,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
     }
 
     //метод для создания задачи из строки
-    private static Task fromString(String value){
+    private static Task fromString(String value) {
         String[] line = value.split(",");
         int id = Integer.parseInt(line[0]);
         TaskType taskType = TaskType.valueOf(line[1]);
         String name = line[2];
         Status status = Status.valueOf(line[3]);
         String description = line[4];
-        switch (taskType){
+        switch (taskType) {
             case TASK:
                 return new Task(name, description, id, status);
             case EPIC:
@@ -73,8 +71,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
     }
 
     //после каждой модифицирующей операции сохраняет задачи в файл
-    protected void save(){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))){
+    protected void save() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             writer.write(FIRST_LINE);
             writer.newLine();
             for (Task task : getSimpleTasks()) {
@@ -95,22 +93,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
     }
 
     //метод создания строки для задачи
-    private String toString(Task task){
+    private String toString(Task task) {
         return task.getId() + "," + task.getTaskType() + "," + task.getName() + "," + task.getStatus() + "," +
                 task.getDescription();
     }
 
     //метод создания строки для эпика
-    private String toString(Epic epic){
+    private String toString(Epic epic) {
         return epic.getId() + "," + epic.getTaskType() + "," + epic.getName() + "," + epic.getStatus() + "," +
                 epic.getDescription();
     }
 
     //метод создания строки для подзадачи
-    private String toString(Subtask subtask){
+    private String toString(Subtask subtask) {
         return subtask.getId() + "," + subtask.getTaskType() + "," + subtask.getName() + "," + subtask.getStatus() +
                 "," + subtask.getDescription() + "," + subtask.getEpicId();
     }
+
     @Override
     public void addSimpleTask(Task task) {
         super.addSimpleTask(task);
@@ -131,14 +130,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
 
     @Override
     public Task getTasksById(int taskId) {
-        Task task =  super.getTasksById(taskId);
+        Task task = super.getTasksById(taskId);
         save();
         return task;
     }
 
     @Override
     public Epic getEpicTasksById(int id) {
-        Epic epic =  super.getEpicTasksById(id);
+        Epic epic = super.getEpicTasksById(id);
         save();
         return epic;
     }
@@ -210,7 +209,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
         save();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Task task = new Task("Task", "NewTask");
         Task task1 = new Task("Task1", "NewTask1");
         Epic epic = new Epic("Epic", "NewEpic");
