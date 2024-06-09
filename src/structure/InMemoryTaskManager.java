@@ -36,29 +36,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Task> getSimpleTasks() {
-        if (simpleTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(simpleTasks.values());
-        }
+        return new ArrayList<>(simpleTasks.values());
     }
 
     @Override
     public ArrayList<Epic> getEpicTasks() {
-        if (epicTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(epicTasks.values());
-        }
+        return new ArrayList<>(epicTasks.values());
     }
 
     @Override
     public ArrayList<Subtask> getEpicSubTasks() {
-        if (subTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(subTasks.values());
-        }
+        return new ArrayList<>(subTasks.values());
     }
 
     //получение задачи по индентификатору из списка простых задач
@@ -169,7 +157,7 @@ public class InMemoryTaskManager implements TaskManager {
         recalculateEpicStatus(epicId);
     }
 
-    private void recalculateEpicStatus(int id) {
+    public void recalculateEpicStatus(int id) {
         int counterNEW = 0;
         int counterDONE = 0;
         ArrayList<Integer> subTaskId = epicTasks.get(id).getEpicsSubtasksId();
