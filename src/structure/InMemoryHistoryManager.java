@@ -6,7 +6,9 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    //метод для получения списка просмотренных задач
+    /**метод для получения списка просмотренных задач
+     * @return
+     */
     @Override
     public ArrayList<Task> getHistory() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -16,7 +18,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         return tasks;
     }
 
-    //метод добавляет задачу в конец списка и удаляет ее предыдущий просмотр
+    /**метод добавляет задачу в конец списка и удаляет ее предыдущий просмотр
+     * @param task
+     */
     @Override
     public void add(Task task) {
         if (idNode.containsKey(task.getId())) {
@@ -33,7 +37,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         idNode.put(task.getId(), newNode);
     }
 
-    //метод принимает id задачи на удаление и передает его на удаление в метод удаления узла
+    /**метод принимает id задачи на удаление и передает его на удаление в метод удаления узла
+     * @param id
+     */
     @Override
     public void remove(int id) {
         if (idNode.containsKey(id)) {
@@ -41,7 +47,9 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    //класс для создания узла в коллекции
+    /**класс для создания узла в коллекции
+     * @param <T>
+     */
     private static class Node<T> {
         public T task;
         public Node<T> next;
@@ -57,10 +65,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     private Node<Task> head;
     private Node<Task> tail;
 
-    //мапа для хранения пары id задачи - узел
+    /**мапа для хранения пары id задачи - узел
+     */
     final Map<Integer, Node<Task>> idNode = new HashMap<>();
 
-    //метод удаляет из мапы узел с задачей, которая уже была просмотрена ранее
+    /**метод удаляет из мапы узел с задачей, которая уже была просмотрена ранее
+     * @param node
+     */
     private void removeNode(Node<Task> node) {
         final Node<Task> prev = node.prev;
         final Node<Task> next = node.next;

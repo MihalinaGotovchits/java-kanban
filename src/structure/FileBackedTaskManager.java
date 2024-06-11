@@ -14,17 +14,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         this.file = new File(String.valueOf(path));
     }
 
-    //строка константа. Будет записана первой в файл(обозначает название "столбцов")
+    /**строка константа. Будет записана первой в файл(обозначает название "столбцов")
+     *
+     */
     private static final String FIRST_LINE = "id,type,name,status,description,epic";
 
-    //метод читает и восстанавливает задачи, которые были записаны в файл во время предыдущей работы
-    static FileBackedTaskManager loadFromFile(File file) {
+    /**метод читает и восстанавливает задачи, которые были записаны в файл во время предыдущей работы
+     *
+     * @param file
+     * @return
+     */
+    public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager fileManager = new FileBackedTaskManager(Path.of("./resources/kanban.csv"));
         try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
             List<String> readTaskLine = reader.lines().toList();
             for (int i = 0; i < readTaskLine.size(); i++) {
                 String[] line = readTaskLine.get(i).split(",");
-                Task task = fromString(line[i]);
+                Task task = convertFromString(line[i]);
                 switch (task.getTaskType()) {
                     case TASK:
                         fileManager.simpleTasks.put(task.getId(), task);
@@ -50,8 +56,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return fileManager;
     }
 
-    //метод для создания задачи из строки
-    private static Task fromString(String value) {
+    /**метод для создания задачи из строки
+     * @param value
+     * @return
+     */
+    private static Task convertFromString(String value) {
         String[] line = value.split(",");
         int id = Integer.parseInt(line[0]);
         TaskType taskType = TaskType.valueOf(line[1]);
@@ -70,21 +79,22 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return null;
     }
 
-    //после каждой модифицирующей операции сохраняет задачи в файл
+    /**после каждой модифицирующей операции сохраняет задачи в файл
+     */
     protected void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             writer.write(FIRST_LINE);
             writer.newLine();
             for (Task task : getSimpleTasks()) {
-                writer.write(toString(task));
+                writer.write(convertTaskToString(task));
                 writer.newLine();
             }
             for (Epic epic : getEpicTasks()) {
-                writer.write(toString(epic));
+                writer.write(convertEpicToString(epic));
                 writer.newLine();
             }
             for (Subtask subtask : getEpicSubTasks()) {
-                writer.write(toString(subtask));
+                writer.write(convertSubtaskToString(subtask));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -92,20 +102,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    //метод создания строки для задачи
-    private String toString(Task task) {
+    /**метод создания строки для задачи
+     * @param task
+     * @return
+     */
+    private String convertTaskToString(Task task) {
         return task.getId() + "," + task.getTaskType() + "," + task.getName() + "," + task.getStatus() + "," +
                 task.getDescription();
     }
 
-    //метод создания строки для эпика
-    private String toString(Epic epic) {
+    /**метод создания строки для эпика
+     * @param epic
+     * @return
+     */
+    private String convertEpicToString(Epic epic) {
         return epic.getId() + "," + epic.getTaskType() + "," + epic.getName() + "," + epic.getStatus() + "," +
                 epic.getDescription();
     }
 
-    //метод создания строки для подзадачи
-    private String toString(Subtask subtask) {
+    /**метод создания строки для подзадачи
+     * @param subtask
+     * @return
+     */
+    private String convertSubtaskToString(Subtask subtask) {
         return subtask.getId() + "," + subtask.getTaskType() + "," + subtask.getName() + "," + subtask.getStatus() +
                 "," + subtask.getDescription() + "," + subtask.getEpicId();
     }
