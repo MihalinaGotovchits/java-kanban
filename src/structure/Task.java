@@ -1,4 +1,4 @@
-package Structure;
+package structure;
 
 import java.util.Objects;
 
@@ -20,7 +20,6 @@ public class Task {
         this.status = status;
     }
 
-
     public String getName() {
         return name;
     }
@@ -35,6 +34,10 @@ public class Task {
 
     public Status getStatus() {
         return status;
+    }
+
+    public TaskType getTaskType() {
+        return TaskType.TASK;
     }
 
     public void setName(String name) {

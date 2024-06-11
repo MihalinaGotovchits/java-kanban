@@ -1,4 +1,4 @@
-package Structure;
+package structure;
 
 import java.util.Objects;
 
@@ -35,6 +35,11 @@ public class Subtask extends Task {
     @Override
     public int hashCode() {
         return Objects.hash(name, description, id, epicId);
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.SUBTASK;
     }
 
     @Override

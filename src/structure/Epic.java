@@ -1,4 +1,4 @@
-package Structure;
+package structure;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,6 +21,11 @@ public class Epic extends Task {
 
     public ArrayList<Integer> getEpicsSubtasksId() {
         return epicsSubtasksId;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EPIC;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package Structure;
+package structure;
 
 import java.util.*;
 
@@ -36,29 +36,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Task> getSimpleTasks() {
-        if (simpleTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(simpleTasks.values());
-        }
+        return new ArrayList<>(simpleTasks.values());
     }
 
     @Override
     public ArrayList<Epic> getEpicTasks() {
-        if (epicTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(epicTasks.values());
-        }
+        return new ArrayList<>(epicTasks.values());
     }
 
     @Override
     public ArrayList<Subtask> getEpicSubTasks() {
-        if (subTasks.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(subTasks.values());
-        }
+        return new ArrayList<>(subTasks.values());
     }
 
     //получение задачи по индентификатору из списка простых задач
@@ -92,6 +80,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         simpleTasks.remove(id);
+        historyList.remove(id);
     }
 
     @Override
@@ -99,16 +88,19 @@ public class InMemoryTaskManager implements TaskManager {
         ArrayList<Integer> subTaskId = epicTasks.get(id).getEpicsSubtasksId();
         for (Integer subtaskId : subTaskId) {
             subTasks.remove(subtaskId);
+            historyList.remove(subtaskId);
         }
         epicTasks.remove(id);
+        historyList.remove(id);
     }
 
     @Override
     public void removeSubtaskById(int id) {
         int epicId = subTasks.get(id).getEpicId();
         ArrayList<Integer> subtaskId = epicTasks.get(epicId).getEpicsSubtasksId();
-        subtaskId.remove(id);
+        subtaskId.remove((Integer) id);
         subTasks.remove(id);
+        historyList.remove(id);
         recalculateEpicStatus(epicId);
     }
 
@@ -165,7 +157,7 @@ public class InMemoryTaskManager implements TaskManager {
         recalculateEpicStatus(epicId);
     }
 
-    private void recalculateEpicStatus(int id) {
+    public void recalculateEpicStatus(int id) {
         int counterNEW = 0;
         int counterDONE = 0;
         ArrayList<Integer> subTaskId = epicTasks.get(id).getEpicsSubtasksId();
@@ -186,7 +178,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return historyList.getHistory();
     }
 }
