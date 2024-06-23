@@ -20,12 +20,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         this.file = new File(String.valueOf(path));
     }
 
-    /**строка константа. Будет записана первой в файл(обозначает название "столбцов")
-     *
+    /**
+     * строка константа. Будет записана первой в файл(обозначает название "столбцов")
      */
     private static final String FIRST_LINE = "id,type,name,status,description,startTime,endTime,duration,epic";
 
-    /**метод читает и восстанавливает задачи, которые были записаны в файл во время предыдущей работы
+    /**
+     * метод читает и восстанавливает задачи, которые были записаны в файл во время предыдущей работы
      *
      * @param file
      * @return
@@ -64,7 +65,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return fileManager;
     }
 
-    /**метод для создания задачи из строки
+    /**
+     * метод для создания задачи из строки
+     *
      * @param value
      * @return
      */
@@ -77,7 +80,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String description = line[4];
         LocalDateTime startTime;
         LocalDateTime endTime;
-        if (!line[5].equals("null")){
+        if (!line[5].equals("null")) {
             startTime = LocalDateTime.parse(line[5]);
             endTime = LocalDateTime.parse(line[6]);
         } else {
@@ -97,7 +100,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return null;
     }
 
-    /**после каждой модифицирующей операции сохраняет задачи в файл
+    /**
+     * после каждой модифицирующей операции сохраняет задачи в файл
      */
     protected void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
@@ -120,7 +124,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
-    /**метод создания строки для задачи
+    /**
+     * метод создания строки для задачи
+     *
      * @param task
      * @return
      */
@@ -129,7 +135,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 task.getDescription() + "," + task.getStartTime() + "," + task.getEndTime() + "," + task.getDuration();
     }
 
-    /**метод создания строки для эпика
+    /**
+     * метод создания строки для эпика
+     *
      * @param epic
      * @return
      */
@@ -139,13 +147,15 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 epic.getDuration();
     }
 
-    /**метод создания строки для подзадачи
+    /**
+     * метод создания строки для подзадачи
+     *
      * @param subtask
      * @return
      */
     private String convertSubtaskToString(Subtask subtask) {
         return subtask.getId() + "," + subtask.getTaskType() + "," + subtask.getName() + "," + subtask.getStatus() +
-                "," + subtask.getDescription()  + "," + subtask.getStartTime() + "," + subtask.getEndTime() + "," +
+                "," + subtask.getDescription() + "," + subtask.getStartTime() + "," + subtask.getEndTime() + "," +
                 subtask.getDuration() + "," + subtask.getEpicId();
     }
 
@@ -251,7 +261,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static void main(String[] args) {
         Task task = new Task("Task", "NewTask", Duration.ofMinutes(5), LocalDateTime.of(2024,
                 Month.JUNE, 23, 11, 11));
-        Task task1 = new Task("Task1", "NewTask1", Duration.ofMinutes(1),LocalDateTime.of(2024,
+        Task task1 = new Task("Task1", "NewTask1", Duration.ofMinutes(1), LocalDateTime.of(2024,
                 Month.JUNE, 24, 14, 45));
         Epic epic = new Epic("Epic", "NewEpic");
         Subtask subtask = new Subtask("SubTask", "BewSubTask", 3, Duration.ofMinutes(2),
