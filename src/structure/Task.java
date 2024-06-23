@@ -1,5 +1,7 @@
-package Structure;
+package structure;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -7,6 +9,16 @@ public class Task {
     protected String description;
     protected int id;
     protected Status status = Status.NEW;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
+
+    public Task(String name, String description, Duration duration, LocalDateTime startTime) {
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
 
     public Task(String name, String description) {
         this.name = name;
@@ -20,6 +32,14 @@ public class Task {
         this.status = status;
     }
 
+    public Task(String name, String description, int id, Status status, Duration duration, LocalDateTime startTime) {
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
 
     public String getName() {
         return name;
@@ -37,12 +57,39 @@ public class Task {
         return status;
     }
 
+    public TaskType getTaskType() {
+        return TaskType.TASK;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (startTime != null) {
+            return startTime.plus(duration);
+        }
+        return null;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
     public void setId(int id) {
@@ -52,7 +99,6 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -77,6 +123,7 @@ public class Task {
                 ", Описание='" + description + '\'' +
                 ", id=" + id +
                 ", статус=" + status +
-                '}';
+                ", дата начала='" + startTime + '\'' +
+                ", продолжительность='" + duration + '}' + '\'';
     }
 }
