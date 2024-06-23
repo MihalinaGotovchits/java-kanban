@@ -1,6 +1,6 @@
-id,type,name,status,description,epic
-1,TASK,Task,NEW,NewTask
-2,TASK,Task1,NEW,NewTask1
-3,EPIC,Epic,NEW,NewEpic
-4,SUBTASK,SubTask,NEW,BewSubTask,3
-5,SUBTASK,SubTask1,NEW,NewSubTask,3
+id,type,name,status,description,startTime,endTime,duration,epic
+1,TASK,Task,NEW,NewTask,2024-06-23T11:11,2024-06-23T11:16,PT5M
+2,TASK,Task1,NEW,NewTask1,2024-06-24T14:45,2024-06-24T14:46,PT1M
+3,EPIC,Epic,NEW,NewEpic,2024-06-20T10:45,2024-06-21T11:13,PT1H2M
+4,SUBTASK,SubTask,NEW,BewSubTask,2024-06-21T11:11,2024-06-21T11:13,PT2M,3
+5,SUBTASK,SubTask1,NEW,NewSubTask,2024-06-20T10:45,2024-06-20T11:45,PT1H,3

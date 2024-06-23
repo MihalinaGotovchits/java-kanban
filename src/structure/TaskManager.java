@@ -34,7 +34,7 @@ public interface TaskManager {
 
     void removeAllSubTasks();
 
-    ArrayList<Subtask> returnSubTaskListByOneEpic(int id);
+    List<Subtask> returnSubTaskListByOneEpic(int id);
 
     void updateTask(Task updateTask);
 
@@ -43,4 +43,10 @@ public interface TaskManager {
     void updateSubtask(Subtask updateSubtask);
 
     List<Task> getHistory();
+
+    void setEpicDateTime(int epicId);
+
+    List<Task> getPrioritizedTasks();
+
+    void validate(Task task);
 }

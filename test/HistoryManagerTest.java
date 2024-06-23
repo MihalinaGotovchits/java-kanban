@@ -1,10 +1,11 @@
-package test;
-
 import structure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,13 +16,16 @@ class HistoryManagerTest {
     Epic epic;
     Subtask subtask;
     Subtask subtask2;
+    final LocalDateTime DATE = LocalDateTime.of(2024, Month.JUNE, 21, 11, 11);
 
     @BeforeEach
     void init() {
-        task = new Task("Задача", "Новая задача", 1, Status.NEW);
+        task = new Task("Задача", "Новая задача", 1, Status.NEW, Duration.ofMinutes(10), DATE);
         epic = new Epic("Эпик", "Новый эпик", 2, Status.NEW);
-        subtask = new Subtask("Подзадача", "Новая подзадача", 3, Status.NEW, 2);
-        subtask2 = new Subtask("Подзадача 2", "Новая подзадача 2", 4, Status.NEW, 2);
+        subtask = new Subtask("Подзадача", "Новая подзадача", 3, Status.NEW, 2,
+                Duration.ofMinutes(40), DATE.plusDays(1));
+        subtask2 = new Subtask("Подзадача 2", "Новая подзадача 2", 4, Status.NEW, 2,
+                Duration.ofMinutes(40), DATE.plusDays(1));
     }
 
     @Test
