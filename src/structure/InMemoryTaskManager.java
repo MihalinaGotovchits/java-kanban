@@ -266,11 +266,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void validate(Task task) {
+    public boolean validate(Task task) {
         List<Task> prioritizedTask = getPrioritizedTasks();
         for (Task currentTask : prioritizedTask) {
             if (task.getStartTime() == null || currentTask.getStartTime() == null) {
-                return;
+                return true;
             }
             if (Objects.equals(task.getId(), currentTask.getId())) {
                 continue;
@@ -282,5 +282,6 @@ public class InMemoryTaskManager implements TaskManager {
             throw new CollectionTaskException("Время выполнения переданной задачи пересекается с временем выполнения "
                     + "уже существующей задачи");
         }
+        return false;
     }
 }

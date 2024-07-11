@@ -50,5 +50,5 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();
 
-    void validate(Task task);
+    boolean validate(Task task);
 }

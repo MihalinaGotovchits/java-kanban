@@ -36,6 +36,12 @@ public class Epic extends Task {
         this.endTime = endTime;
     }
 
+    public Epic(String name, String description, Status status, LocalDateTime startTime, Duration duration,
+                LocalDateTime endTime) {
+        super(name, description, status, startTime, duration);
+        this.endTime = endTime;
+    }
+
     public ArrayList<Integer> getEpicsSubtasksId() {
         return epicsSubtasksId;
     }
