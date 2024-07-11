@@ -20,6 +20,8 @@ public interface TaskManager {
 
     Epic getEpicTasksById(int id);
 
+    ArrayList<Subtask> getListOfSubtasksByOneEpic(int id);
+
     Subtask getSubTasksById(int id);
 
     void removeTaskById(int id);
