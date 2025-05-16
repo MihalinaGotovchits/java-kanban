@@ -1,6 +1,7 @@
-package Structure;
+package structure;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     void addSimpleTask(Task task);
@@ -19,10 +20,14 @@ public interface TaskManager {
 
     Epic getEpicTasksById(int id);
 
+    ArrayList<Subtask> getListOfSubtasksByOneEpic(int id);
+
     Subtask getSubTasksById(int id);
 
     void removeTaskById(int id);
+
     void removeEpicById(int id);
+
     void removeSubtaskById(int id);
 
     void removeSimpleTasks();
@@ -31,7 +36,7 @@ public interface TaskManager {
 
     void removeAllSubTasks();
 
-    ArrayList<Subtask> returnSubTaskListByOneEpic(int id);
+    List<Subtask> returnSubTaskListByOneEpic(int id);
 
     void updateTask(Task updateTask);
 
@@ -39,5 +44,11 @@ public interface TaskManager {
 
     void updateSubtask(Subtask updateSubtask);
 
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
+
+    void setEpicDateTime(int epicId);
+
+    List<Task> getPrioritizedTasks();
+
+    boolean validate(Task task);
 }
